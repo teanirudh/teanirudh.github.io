@@ -10,6 +10,13 @@ refactor: true
 
 {% assign posts = '' | split: '' %}
 
+<!-- Render intro content before posts -->
+<div id="intro" class="flex-grow-1 px-xl-1">
+  {% assign intro = site.core | where: "title", "Intro" | first %}
+  {% if intro %} {{ intro.content }} {% endif %}
+</div>
+<hr class="my-4">
+
 <!-- Get pinned posts on current page -->
 
 {% assign visible_start = paginator.page | minus: 1 | times: paginator.per_page %}

@@ -104,6 +104,8 @@ collections:
   tabs:
     output: true
     sort_by: order
+  core:
+    output: false
 
 defaults:
   - scope:
