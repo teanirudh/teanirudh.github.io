@@ -8,9 +8,19 @@ layout: default
   {% if page.layout == 'page' or page.collection == 'tabs' %}
     {% assign tab_key = page.title | downcase %}
     {% assign title = site.data.locales[lang].tabs[tab_key] | default: page.title %}
-    <h1 class="dynamic-title">
-      {{ title }}
-    </h1>
+    <header>
+      <h1 class="dynamic-title">
+        {{ title }}
+      </h1>
+      {% if page.last_modified_at %}
+        <div class="mt-4 post-meta text-muted">
+          <span>
+            {{ site.data.locales[lang].post.updated }}
+            {% include datetime.html date=page.last_modified_at tooltip=true lang=lang %}
+          </span>
+        </div>
+      {% endif %}
+    </header>
     <div class="content">
       {{ content }}
     </div>

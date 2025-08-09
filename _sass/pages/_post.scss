@@ -24,10 +24,6 @@ header {
   }
 
   .post-meta {
-    span + span::before {
-      @include -dot;
-    }
-
     em,
     time {
       @extend %text-highlight;

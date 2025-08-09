@@ -22,20 +22,6 @@ script_includes:
     {% endif %}
 
     <div class="post-meta text-muted">
-      <!-- published date -->
-      <span>
-        {{ site.data.locales[lang].post.posted }}
-        {% include datetime.html date=page.date tooltip=true lang=lang %}
-      </span>
-
-      <!-- lastmod date -->
-      {% if page.last_modified_at and page.last_modified_at != page.date %}
-        <span>
-          {{ site.data.locales[lang].post.updated }}
-          {% include datetime.html date=page.last_modified_at tooltip=true lang=lang %}
-        </span>
-      {% endif %}
-
       {% if page.image %}
         {% capture src %}src="{{ page.image.path | default: page.image }}"{% endcapture %}
         {% capture class %}class="preview-img{% if page.image.no_bg %}{{ ' no-bg' }}{% endif %}"{% endcapture %}
@@ -54,6 +40,12 @@ script_includes:
       {% endif %}
 
       <div class="d-flex justify-content-between">
+        <!-- published date -->
+        <span>
+          {{ site.data.locales[lang].post.posted }}
+          {% include datetime.html date=page.date tooltip=true lang=lang %}
+        </span>
+
         <!-- author(s) -->
         <span>
           {% if page.author %}
@@ -80,20 +72,6 @@ script_includes:
           </em>
         </span>
 
-        <div>
-          <!-- pageviews -->
-          {% if site.pageviews.provider and site.analytics[site.pageviews.provider].id %}
-            <span>
-              <em id="pageviews">
-                <i class="fas fa-spinner fa-spin small"></i>
-              </em>
-              {{ site.data.locales[lang].post.pageview_measure }}
-            </span>
-          {% endif %}
-
-          <!-- read time -->
-          {% include read-time.html content=content prompt=true lang=lang %}
-        </div>
       </div>
     </div>
   </header>
@@ -127,32 +105,6 @@ script_includes:
   </div>
 
   <div class="post-tail-wrapper text-muted">
-    <!-- categories -->
-    {% if page.categories.size > 0 %}
-      <div class="post-meta mb-3">
-        <i class="far fa-folder-open fa-fw me-1"></i>
-        {% for category in page.categories %}
-          <a href="{{ site.baseurl }}/categories/{{ category | slugify | url_encode }}/">{{ category }}</a>
-          {%- unless forloop.last -%},{%- endunless -%}
-        {% endfor %}
-      </div>
-    {% endif %}
-
-    <!-- tags -->
-    {% if page.tags.size > 0 %}
-      <div class="post-tags">
-        <i class="fa fa-tags fa-fw me-1"></i>
-        {% for tag in page.tags %}
-          <a
-            href="{{ site.baseurl }}/tags/{{ tag | slugify | url_encode }}/"
-            class="post-tag no-text-decoration"
-          >
-            {{- tag -}}
-          </a>
-        {% endfor %}
-      </div>
-    {% endif %}
-
     <div
       class="
         post-tail-bottom
