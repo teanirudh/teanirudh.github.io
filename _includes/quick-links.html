@@ -1,5 +1,6 @@
 <!-- Navigate to posts -->
 
+{% if site.posts.size > 0 %}
 <section id="access-links">
   <h2 class="panel-heading">{{- site.data.locales[include.lang].panel.browse -}}</h2>
   <div class="d-flex mt-4 pb-2"> 
@@ -7,3 +8,4 @@
     <div><a href="/archives" class="nav-btn">Date</a></div>
   </div>
 </section>
+{% endif %}
