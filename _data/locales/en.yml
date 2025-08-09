@@ -11,20 +11,21 @@ layout:
 tabs:
   # format: <filename_without_extension>: <value>
   home: Home
-  categories: Categories
+  categories: Collections
   tags: Tags
-  archives: Archives
+  archives: Timeline
   about: About
 
 # the text displayed in the search bar & search results
 search:
   hint: search
   cancel: Cancel
-  no_results: Oops! No results found.
+  no_results: No result found
 
 panel:
-  lastmod: Recently Updated
-  trending_tags: Trending Tags
+  lastmod: Recently updated
+  trending_tags: Popular tags
+  browse: Browse posts by
   toc: Contents
 
 copyright:
@@ -43,7 +44,7 @@ copyright:
 meta: Using the :THEME theme for :PLATFORM.
 
 not_found:
-  statement: Sorry, we've misplaced that URL or it's pointing to something that doesn't exist.
+  statement: The page you're looking for doesn't exist or the link is invalid.
 
 notification:
   update_found: A new version of content is available.
@@ -60,7 +61,7 @@ post:
   read_time:
     unit: min
     prompt: read
-  relate_posts: Further Reading
+  relate_posts: Related posts
   share: Share
   button:
     next: Newer
@@ -84,8 +85,8 @@ df:
 # categories page
 categories:
   category_measure:
-    singular: category
-    plural: categories
+    singular: topic
+    plural: topics
   post_measure:
     singular: post
     plural: posts

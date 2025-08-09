@@ -26,7 +26,8 @@
         </a>
       </li>
       <!-- the real tabs -->
-      {% for tab in site.tabs %}
+      {% assign real_tabs = site.tabs | where: 'show_tab', true %}
+      {% for tab in real_tabs %}
         <li class="nav-item{% if tab.url == page.url %}{{ " active" }}{% endif %}">
           <a href="{{ tab.url | relative_url }}" class="nav-link">
             <i class="fa-fw {{ tab.icon }}"></i>
