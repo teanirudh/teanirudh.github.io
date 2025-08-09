@@ -31,23 +31,17 @@ panel:
 copyright:
   # Shown at the bottom of the post
   license:
-    template: This post is licensed under :LICENSE_NAME by the author.
+    template: Licensed under :LICENSE_NAME
     name: CC BY 4.0
     link: https://creativecommons.org/licenses/by/4.0/
 
-  # Displayed in the footer
-  brief: Some rights reserved.
-  verbose: >-
-    Except where otherwise noted, the blog posts on this site are licensed
-    under the Creative Commons Attribution 4.0 International (CC BY 4.0) License by the author.
-
-meta: Using the :THEME theme for :PLATFORM.
+meta: Built using :THEME
 
 not_found:
-  statement: The page you're looking for doesn't exist or the link is invalid.
+  statement: The page was not found or the link is invalid.
 
 notification:
-  update_found: A new version of content is available.
+  update_found: A new version of this content is available.
   update: Update
 
 # ----- Posts related labels -----
@@ -70,7 +64,7 @@ post:
       succeed: Copied!
     share_link:
       title: Copy link
-      succeed: Link copied successfully!
+      succeed: Link copied!
 
 # Date time format.
 # See: <http://strftime.net/>, <https://day.js.org/docs/en/display/format>
