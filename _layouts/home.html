@@ -5,17 +5,19 @@ refactor: true
 
 {% include lang.html %}
 
+<!-- Render intro content -->
+{% assign intro = site.tabs | where: "title", "Intro" | first %}
+
+{% if intro and intro.content %}
+  <div id="intro" class="flex-grow-1 px-xl-1 mt-4 pt-4">
+    {{ intro.content }}
+  </div>
+{% endif %}
+
 {% assign all_pinned = site.posts | where: 'pin', 'true' %}
 {% assign all_normal = site.posts | where_exp: 'item', 'item.pin != true and item.hidden != true' %}
 
 {% assign posts = '' | split: '' %}
-
-<!-- Render intro content before posts -->
-<div id="intro" class="flex-grow-1 px-xl-1">
-  {% assign intro = site.tabs | where: "title", "Intro" | first %}
-  {% if intro %} {{ intro.content }} {% endif %}
-</div>
-<hr class="my-4">
 
 <!-- Get pinned posts on current page -->
 
