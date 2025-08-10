@@ -9,7 +9,7 @@ refactor: true
 {% assign intro = site.tabs | where: "title", "Intro" | first %}
 
 {% if intro and intro.content %}
-  <div id="intro" class="flex-grow-1 px-xl-1 mt-4 pt-4">
+  <div id="intro" class="flex-grow-1 px-xl-1 mt-5">
     {{ intro.content }}
   </div>
 {% endif %}
