@@ -41,8 +41,8 @@ not_found:
   statement: The page was not found or the link is invalid.
 
 notification:
-  update_found: A new version of this content is available.
-  update: Update
+  update_found: The contents of this page have been updated.
+  update: Refresh
 
 # ----- Posts related labels -----
 
