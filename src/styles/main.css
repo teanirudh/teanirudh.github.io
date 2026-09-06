@@ -12,10 +12,11 @@
   --page-pad: clamp(1.25rem, 4vw, 2rem);
   --page-y: clamp(2.25rem, 8vh, 5rem);
 
-  --fs-body: 1rem;
-  --fs-name: 1.5rem;
-  --fs-tag: 0.75rem;
-  --fs-nav: 0.875rem;
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.875rem;
+  --fs-md: 1rem;
+  --fs-lg: 1.25rem;
+  --fs-xl: 1.5rem;
 
   --avatar: 60px;
   --sep-gap: 15px;
@@ -33,22 +34,27 @@
   --contact-h: 2.5rem;
   --contact-icon: 1.15rem;
   --bio-gap: 1.15rem;
-  --degree-logo: 3.75rem;
+  --entry-logo: 50px;
+  --entry-block-gap: 1.5rem;
   --timeline-gutter: 1.15rem;
   --timeline-dot: 7px;
 }
 
 @media (width < 720px) {
   :root {
-    --page-pad: 1rem;
+    --page-pad: 1.5rem;
     --page-y: 2.25rem;
-    --fs-name: 1.25rem;
+    --fs-xs: 0.75rem;
+    --fs-sm: 0.875rem;
+    --fs-md: 1rem;
+    --fs-lg: 1.25rem;
+    --fs-xl: 1.25rem;
     --avatar: 2.75rem;
     --profile-pad: 1rem;
     --sep-gap: 10px;
     --sep-height: 1.75rem;
     --tag-gap: 0.1rem;
-    --tab-gap: 0.35rem;
+    --tab-gap: 0.1rem;
     --tab-icon: 1.25rem;
     --content-pad: 1.5rem;
     --contact-gap: 0.5rem;
@@ -57,7 +63,8 @@
     --contact-h: 2.25rem;
     --tab-hit: 1.65rem;
     --tab-hit-min: 1.25rem;
-    --degree-logo: 60px;
+    --entry-logo: 50px;
+    --entry-block-gap: 1.35rem;
   }
 }
 
@@ -74,7 +81,7 @@ html {
 body {
   min-height: 100vh;
   font-family: Lexend, system-ui, sans-serif;
-  font-size: var(--fs-body);
+  font-size: var(--fs-md);
   line-height: 1.75;
   color: var(--ink);
   background: var(--paper);
@@ -96,32 +103,27 @@ a:hover {
   text-decoration-thickness: 2px;
 }
 
+.shell,
 .page {
   width: min(var(--page-max), 100%);
   margin: 0 auto;
-  padding: var(--page-y) var(--page-pad);
-  animation: page-in 0.7s var(--ease) both;
+  padding-left: var(--page-pad);
+  padding-right: var(--page-pad);
 }
 
-@keyframes page-in {
-  from {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-
-  to {
-    opacity: 1;
-    transform: none;
-  }
+.page {
+  padding-bottom: var(--page-y);
 }
 
 .masthead {
   position: sticky;
   top: 0;
   z-index: 8;
-  padding-top: var(--sticky-bleed);
-  margin-top: calc(var(--sticky-bleed) * -1);
   background: var(--paper);
+}
+
+.masthead .shell {
+  padding-top: var(--page-y);
 }
 
 .profile {
@@ -153,7 +155,7 @@ a:hover {
 .profile__name {
   width: 0;
   min-width: 100%;
-  font-size: var(--fs-name);
+  font-size: var(--fs-xl);
   font-weight: 600;
   line-height: 1.15;
   letter-spacing: -0.03em;
@@ -164,7 +166,7 @@ a:hover {
   margin-top: var(--tag-gap);
   width: max-content;
   color: var(--muted);
-  font-size: var(--fs-tag);
+  font-size: var(--fs-xs);
   font-weight: 400;
   white-space: nowrap;
 }
@@ -194,7 +196,7 @@ a:hover {
   flex: 0 0 auto;
   color: var(--muted);
   text-decoration: none;
-  font-size: var(--fs-nav);
+  font-size: var(--fs-sm);
   font-weight: 500;
   letter-spacing: -0.01em;
   padding: 0.28rem 0.4rem;
@@ -299,11 +301,11 @@ a:hover {
   border-left: 1px solid color-mix(in srgb, var(--ink) 26%, var(--paper));
 }
 
-.degree {
+.entry {
   position: relative;
 }
 
-.degree::before {
+.entry::before {
   content: "";
   position: absolute;
   top: 0.55rem;
@@ -314,86 +316,169 @@ a:hover {
   background: var(--ink);
 }
 
-.degree__lead {
+.entry__lead {
+  --lead-title-size: var(--fs-md);
+  --lead-meta-size: var(--fs-sm);
+  --lead-pair-gap: calc(
+    var(--entry-logo) - (var(--lead-title-size) * 1.35) -
+      (var(--lead-meta-size) * 1.35)
+  );
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto var(--degree-logo);
+  grid-template-columns: minmax(0, 1fr) var(--entry-logo);
+  grid-template-rows:
+    calc(var(--lead-title-size) * 1.35) calc(var(--lead-meta-size) * 1.35);
   column-gap: 0.85rem;
-  row-gap: 0.15rem;
-  align-items: baseline;
+  row-gap: var(--lead-pair-gap);
+  align-items: start;
 }
 
-.degree__title,
-.degree__school,
-.degree__meta,
-.degree__when {
+.entry__title,
+.entry__degree,
+.entry__meta,
+.entry__stream,
+.entry__when {
   line-height: 1.35;
 }
 
-.degree__title,
-.degree__school {
-  font-size: var(--fs-body);
-}
-
-.degree__title {
-  grid-column: 1;
-  grid-row: 1;
+.entry__title,
+.entry__degree {
+  font-size: var(--fs-md);
   font-weight: 600;
   letter-spacing: -0.025em;
 }
 
-.degree__school {
-  grid-column: 1;
-  grid-row: 2;
-  font-weight: 400;
+.entry__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.85rem;
+  margin-bottom: 0.8rem;
 }
 
-.degree__meta,
-.degree__when {
+.entry__degree {
+  min-width: 0;
+}
+
+.entry__stream {
+  flex-shrink: 0;
   color: var(--muted);
-  font-size: var(--fs-tag);
+  font-size: var(--fs-sm);
   text-align: right;
   white-space: nowrap;
 }
 
-.degree__meta {
-  grid-column: 2;
+.entry__title {
+  grid-column: 1;
   grid-row: 1;
+  min-width: 0;
+  font-size: var(--lead-title-size);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.degree__when {
-  grid-column: 2;
+.entry__head + .entry__lead .entry__title {
+  font-weight: 400;
+}
+
+.entry__meta {
+  grid-column: 1;
   grid-row: 2;
+  min-width: 0;
+  color: var(--muted);
+  font-size: var(--lead-meta-size);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.degree__mark {
-  grid-column: 3;
-  grid-row: 1 / span 2;
-  align-self: center;
+.entry__when {
+  color: var(--muted);
+  font-size: var(--fs-sm);
+  white-space: nowrap;
+}
+
+.entry__mark {
+  grid-column: 2;
+  grid-row: 1 / -1;
+  align-self: stretch;
   display: grid;
   place-items: center;
-  width: var(--degree-logo);
-  height: var(--degree-logo);
+  width: var(--entry-logo);
+  height: var(--entry-logo);
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: 50%;
   background: var(--paper);
 }
 
-.degree__logo {
+.entry__logo {
   width: 88%;
   height: 88%;
   object-fit: contain;
   object-position: center;
 }
 
-.degree__logo[data-fit="wide"] {
+.entry__logo[data-fit="wide"] {
   width: 94%;
   height: 94%;
 }
 
-.degree__blurb {
+.entry__blurb {
   margin-top: 0.65rem;
   line-height: 1.7;
+  text-align: left;
+}
+
+.entry__lead + .entry__blurb {
+  margin-top: 0.8rem;
+}
+
+.roles {
+  display: flex;
+  flex-direction: column;
+  gap: 1.35rem;
+  margin-top: var(--entry-block-gap);
+  list-style: none;
+}
+
+.roles > li {
+  position: relative;
+}
+
+.roles > li::before {
+  content: "";
+  position: absolute;
+  top: 0.45rem;
+  left: calc(-1 * var(--timeline-gutter) - var(--timeline-dot) / 2);
+  width: var(--timeline-dot);
+  height: var(--timeline-dot);
+  border-radius: 50%;
+  box-sizing: border-box;
+  background: var(--paper);
+  border: 1.5px solid var(--ink);
+}
+
+.role__head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: 0.85rem;
+  align-items: baseline;
+}
+
+.role__title {
+  font-size: var(--fs-md);
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+}
+
+.role__when {
+  color: var(--muted);
+  font-size: var(--fs-sm);
+  line-height: 1.35;
+  text-align: right;
+  white-space: nowrap;
 }
 
 .pills {
@@ -409,19 +494,14 @@ a:hover {
   border: 1px solid var(--line);
   border-radius: 999px;
   color: var(--muted);
-  font-size: var(--fs-tag);
+  font-size: var(--fs-xs);
   line-height: 1.5;
 }
 
 @media (width >= 720px) {
   .bio,
-  .degree__blurb {
+  .entry__blurb {
     text-align: justify;
-  }
-
-  .degree__meta,
-  .degree__when {
-    font-size: 14px;
   }
 }
 
@@ -457,47 +537,41 @@ a:hover {
     gap: 1.65rem;
   }
 
-  .degree__lead {
-    grid-template-columns: minmax(0, 1fr) var(--degree-logo);
+  .entry__lead {
     column-gap: 0.65rem;
+  }
+
+  .entry__head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: calc(var(--entry-logo) - (var(--fs-md) * 1.35) - (var(--fs-sm) * 1.35));
+  }
+
+  .entry__stream {
+    text-align: left;
+    white-space: normal;
+  }
+
+  .entry__head + .entry__lead {
+    --lead-title-size: var(--fs-sm);
+  }
+
+  .roles {
+    gap: 1.15rem;
+  }
+
+  .role__head {
+    grid-template-columns: minmax(0, 1fr);
     row-gap: 0.28rem;
   }
 
-  .degree__title,
-  .degree__school {
-    font-size: var(--fs-nav);
-  }
-
-  .degree__title {
-    grid-column: 1;
-    grid-row: 1;
-  }
-
-  .degree__meta {
-    grid-column: 1;
-    grid-row: 2;
+  .role__when {
     text-align: left;
-  }
-
-  .degree__school {
-    grid-column: 1;
-    grid-row: 3;
-  }
-
-  .degree__when {
-    grid-column: 1;
-    grid-row: 4;
-    text-align: left;
-  }
-
-  .degree__mark {
-    grid-column: 2;
-    grid-row: 1 / span 4;
-    align-self: center;
   }
 }
 
 @media (width < 360px) {
+  .masthead,
   .page {
     display: none;
   }
@@ -512,9 +586,7 @@ a:hover {
   }
 
   .content.is-leaving,
-  .content.is-entering,
-  .page {
+  .content.is-entering {
     opacity: 1;
-    transform: none;
   }
 }

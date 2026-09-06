@@ -97,8 +97,13 @@ if (!location.hash) {
   history.replaceState(null, "", "#home");
 }
 
+if ("scrollRestoration" in history) {
+  history.scrollRestoration = "manual";
+}
+
 mountIcons();
 render(pageFromHash());
+window.scrollTo(0, 0);
 
 tabs.addEventListener("click", (event) => {
   const link = event.target.closest("[data-page]");
