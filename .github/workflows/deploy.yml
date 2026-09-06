@@ -21,21 +21,24 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install and build
+        run: |
+          npm ci
+          npm run build
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
-
-      - name: Prepare site
-        run: |
-          mkdir -p _deploy
-          sed 's|href="../|href="|g; s|src="../|src="|g' site/pages/index.html > _deploy/index.html
-          cp -r site/icons _deploy/icons
-          cp -r site/assets _deploy/assets
-          cp -r site/styles _deploy/styles
 
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: _deploy
+          path: dist
 
   deploy:
     environment:

@@ -1,0 +1,346 @@
+:root {
+  --paper: #f1f1f1;
+  --ink: #1a1a1a;
+  --muted: color-mix(in srgb, var(--ink) 64%, var(--paper));
+  --line: color-mix(in srgb, var(--ink) 12%, var(--paper));
+  --hover: color-mix(in srgb, var(--ink) 6%, var(--paper));
+  --tab-active: color-mix(in srgb, var(--ink) 8%, var(--paper));
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration: 0.32s;
+
+  --page-max: 720px;
+  --page-pad: clamp(1.25rem, 4vw, 2rem);
+  --page-y: clamp(2.25rem, 8vh, 5rem);
+
+  --fs-body: 1rem;
+  --fs-name: 1.5rem;
+  --fs-tag: 0.75rem;
+  --fs-nav: 0.875rem;
+
+  --avatar: 64px;
+  --avatar-gap: 1.15rem;
+  --profile-pad: 1.15rem;
+  --sticky-bleed: 0.75rem;
+  --sep-gap: 15px;
+  --sep-height: 2.5rem;
+  --tag-gap: 0.2rem;
+  --tab-gap: 0.5rem;
+  --tab-icon: 1.15rem;
+  --content-pad: 1.75rem;
+  --contact-gap: 0.65rem;
+  --contact-top: 2.5rem;
+  --contact-w: 2.75rem;
+  --contact-h: 2.5rem;
+  --contact-icon: 1.15rem;
+  --bio-gap: 1.15rem;
+}
+
+@media (width < 720px) {
+  :root {
+    --page-pad: 1rem;
+    --page-y: 2.25rem;
+    --fs-name: 1.25rem;
+    --avatar: 2.75rem;
+    --avatar-gap: 0.7rem;
+    --profile-pad: 1rem;
+    --sep-gap: 10px;
+    --sep-height: 1.75rem;
+    --tag-gap: 0.1rem;
+    --tab-gap: 0.35rem;
+    --tab-icon: 1.25rem;
+    --content-pad: 1.5rem;
+    --contact-gap: 0.5rem;
+    --contact-top: 2rem;
+    --contact-w: 2.5rem;
+    --contact-h: 2.25rem;
+    --tab-hit: 1.65rem;
+    --tab-hit-min: 1.25rem;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  color-scheme: light;
+}
+
+body {
+  min-height: 100vh;
+  font-family: Lexend, system-ui, sans-serif;
+  font-size: var(--fs-body);
+  line-height: 1.75;
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--ink);
+  text-decoration-color: var(--muted);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+  transition:
+    text-decoration-color var(--duration) var(--ease),
+    text-decoration-thickness var(--duration) var(--ease);
+}
+
+a:hover {
+  text-decoration-color: var(--ink);
+  text-decoration-thickness: 2px;
+}
+
+.page {
+  width: min(var(--page-max), 100%);
+  margin: 0 auto;
+  padding: var(--page-y) var(--page-pad);
+  animation: page-in 0.7s var(--ease) both;
+}
+
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.masthead {
+  position: sticky;
+  top: 0;
+  z-index: 8;
+  padding-top: var(--sticky-bleed);
+  margin-top: calc(var(--sticky-bleed) * -1);
+  background: var(--paper);
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  padding-bottom: var(--profile-pad);
+  border-bottom: 1px solid var(--line);
+}
+
+.profile__brand {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: var(--avatar-gap);
+}
+
+.avatar {
+  flex-shrink: 0;
+  width: var(--avatar);
+  height: var(--avatar);
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profile__meta {
+  width: max-content;
+}
+
+.profile__name {
+  width: 0;
+  min-width: 100%;
+  font-size: var(--fs-name);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+}
+
+.tagline {
+  margin-top: var(--tag-gap);
+  width: max-content;
+  color: var(--muted);
+  font-size: var(--fs-tag);
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.profile__rule {
+  flex: 1 1 auto;
+  align-self: center;
+  min-width: calc(var(--sep-gap) * 2);
+  height: var(--sep-height);
+  background: linear-gradient(var(--line), var(--line)) center / 1px 100%
+    no-repeat;
+}
+
+.tabs {
+  display: flex;
+  flex-wrap: nowrap;
+  flex: 0 0 auto;
+  justify-content: flex-end;
+  gap: var(--tab-gap);
+  min-width: 0;
+}
+
+.tabs a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex: 0 0 auto;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: var(--fs-nav);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  padding: 0.15rem 0.22rem;
+  border-radius: 0.35rem;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  transition:
+    color var(--duration) var(--ease),
+    background var(--duration) var(--ease);
+}
+
+.tabs a svg {
+  width: var(--tab-icon);
+  height: var(--tab-icon);
+  fill: currentColor;
+}
+
+.tabs a:hover {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.tabs a[aria-current="page"] {
+  color: var(--ink);
+  background: var(--tab-active);
+}
+
+.contacts {
+  display: flex;
+  align-items: center;
+  gap: var(--contact-gap);
+  margin-top: var(--contact-top);
+}
+
+.contacts::before,
+.contacts::after {
+  content: "";
+  flex: 1 1 auto;
+  height: 1px;
+  background: var(--line);
+}
+
+.contacts a {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: var(--contact-w);
+  height: var(--contact-h);
+  border: 1px solid var(--line);
+  border-radius: 0.65rem;
+  color: var(--ink);
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    color var(--duration) var(--ease),
+    background var(--duration) var(--ease),
+    border-color var(--duration) var(--ease);
+}
+
+.contacts a:hover {
+  background: var(--hover);
+  border-color: color-mix(in srgb, var(--ink) 22%, var(--paper));
+  text-decoration: none;
+}
+
+.contacts svg {
+  width: var(--contact-icon);
+  height: var(--contact-icon);
+  display: block;
+  fill: currentColor;
+}
+
+.content {
+  padding: var(--content-pad) 0 0;
+  min-height: 12rem;
+  transition: opacity var(--duration) var(--ease);
+}
+
+.content.is-leaving,
+.content.is-entering {
+  opacity: 0;
+}
+
+.content.is-entering {
+  transition: none;
+}
+
+.bio {
+  text-align: left;
+}
+
+.bio p + p {
+  margin-top: var(--bio-gap);
+}
+
+@media (width >= 720px) {
+  .bio {
+    text-align: justify;
+  }
+}
+
+@media (width < 720px) {
+  .tabs {
+    flex: 0 1 auto;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .tabs a {
+    width: var(--tab-hit);
+    height: var(--tab-hit);
+    flex: 0 1 var(--tab-hit);
+    min-width: var(--tab-hit-min);
+    justify-content: center;
+    padding: 0;
+  }
+
+  .tabs__label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+}
+
+@media (width < 360px) {
+  .page {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .content.is-leaving,
+  .content.is-entering,
+  .page {
+    opacity: 1;
+    transform: none;
+  }
+}
