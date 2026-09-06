@@ -17,15 +17,15 @@
   --fs-tag: 0.75rem;
   --fs-nav: 0.875rem;
 
-  --avatar: 64px;
-  --avatar-gap: 1.15rem;
+  --avatar: 60px;
+  --sep-gap: 15px;
+  --avatar-gap: var(--sep-gap);
   --profile-pad: 1.15rem;
   --sticky-bleed: 0.75rem;
-  --sep-gap: 15px;
   --sep-height: 2.5rem;
   --tag-gap: 0.2rem;
-  --tab-gap: 0.5rem;
-  --tab-icon: 1.15rem;
+  --tab-gap: 0.2rem;
+  --tab-icon: 1rem;
   --content-pad: 1.75rem;
   --contact-gap: 0.65rem;
   --contact-top: 2.5rem;
@@ -33,6 +33,9 @@
   --contact-h: 2.5rem;
   --contact-icon: 1.15rem;
   --bio-gap: 1.15rem;
+  --degree-logo: 3.75rem;
+  --timeline-gutter: 1.15rem;
+  --timeline-dot: 7px;
 }
 
 @media (width < 720px) {
@@ -41,7 +44,6 @@
     --page-y: 2.25rem;
     --fs-name: 1.25rem;
     --avatar: 2.75rem;
-    --avatar-gap: 0.7rem;
     --profile-pad: 1rem;
     --sep-gap: 10px;
     --sep-height: 1.75rem;
@@ -55,6 +57,7 @@
     --contact-h: 2.25rem;
     --tab-hit: 1.65rem;
     --tab-hit-min: 1.25rem;
+    --degree-logo: 60px;
   }
 }
 
@@ -194,7 +197,7 @@ a:hover {
   font-size: var(--fs-nav);
   font-weight: 500;
   letter-spacing: -0.01em;
-  padding: 0.15rem 0.22rem;
+  padding: 0.28rem 0.4rem;
   border-radius: 0.35rem;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
@@ -288,9 +291,137 @@ a:hover {
   margin-top: var(--bio-gap);
 }
 
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding-left: var(--timeline-gutter);
+  border-left: 1px solid color-mix(in srgb, var(--ink) 26%, var(--paper));
+}
+
+.degree {
+  position: relative;
+}
+
+.degree::before {
+  content: "";
+  position: absolute;
+  top: 0.55rem;
+  left: calc(-1 * var(--timeline-gutter) - var(--timeline-dot) / 2);
+  width: var(--timeline-dot);
+  height: var(--timeline-dot);
+  border-radius: 50%;
+  background: var(--ink);
+}
+
+.degree__lead {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto var(--degree-logo);
+  column-gap: 0.85rem;
+  row-gap: 0.15rem;
+  align-items: baseline;
+}
+
+.degree__title,
+.degree__school,
+.degree__meta,
+.degree__when {
+  line-height: 1.35;
+}
+
+.degree__title,
+.degree__school {
+  font-size: var(--fs-body);
+}
+
+.degree__title {
+  grid-column: 1;
+  grid-row: 1;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+.degree__school {
+  grid-column: 1;
+  grid-row: 2;
+  font-weight: 400;
+}
+
+.degree__meta,
+.degree__when {
+  color: var(--muted);
+  font-size: var(--fs-tag);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.degree__meta {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.degree__when {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.degree__mark {
+  grid-column: 3;
+  grid-row: 1 / span 2;
+  align-self: center;
+  display: grid;
+  place-items: center;
+  width: var(--degree-logo);
+  height: var(--degree-logo);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--paper);
+}
+
+.degree__logo {
+  width: 88%;
+  height: 88%;
+  object-fit: contain;
+  object-position: center;
+}
+
+.degree__logo[data-fit="wide"] {
+  width: 94%;
+  height: 94%;
+}
+
+.degree__blurb {
+  margin-top: 0.65rem;
+  line-height: 1.7;
+}
+
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.85rem;
+  list-style: none;
+}
+
+.pills li {
+  padding: 0.2rem 0.65rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: var(--fs-tag);
+  line-height: 1.5;
+}
+
 @media (width >= 720px) {
-  .bio {
+  .bio,
+  .degree__blurb {
     text-align: justify;
+  }
+
+  .degree__meta,
+  .degree__when {
+    font-size: 14px;
   }
 }
 
@@ -320,6 +451,49 @@ a:hover {
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
     border: 0;
+  }
+
+  .timeline {
+    gap: 1.65rem;
+  }
+
+  .degree__lead {
+    grid-template-columns: minmax(0, 1fr) var(--degree-logo);
+    column-gap: 0.65rem;
+    row-gap: 0.28rem;
+  }
+
+  .degree__title,
+  .degree__school {
+    font-size: var(--fs-nav);
+  }
+
+  .degree__title {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .degree__meta {
+    grid-column: 1;
+    grid-row: 2;
+    text-align: left;
+  }
+
+  .degree__school {
+    grid-column: 1;
+    grid-row: 3;
+  }
+
+  .degree__when {
+    grid-column: 1;
+    grid-row: 4;
+    text-align: left;
+  }
+
+  .degree__mark {
+    grid-column: 2;
+    grid-row: 1 / span 4;
+    align-self: center;
   }
 }
 

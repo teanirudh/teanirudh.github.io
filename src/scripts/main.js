@@ -21,8 +21,21 @@ function setActiveTab(name) {
   }
 }
 
+function openOffsite(root) {
+  for (const link of root.querySelectorAll("a[href]")) {
+    const href = link.getAttribute("href") || "";
+    if (href.startsWith("#") || href.startsWith("/")) {
+      continue;
+    }
+
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+  }
+}
+
 function render(name) {
   content.innerHTML = pages[name];
+  openOffsite(content);
   mountIcons(content);
   content.dataset.page = name;
   setActiveTab(name);
