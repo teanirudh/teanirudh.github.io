@@ -11,6 +11,10 @@ const swapMs = reduceMotion ? 0 : 320;
 let swapTimer = 0;
 let pendingPage = "";
 
+function setTitle(name) {
+  document.title = `$ teanirudh > ${name}`;
+}
+
 function setActiveTab(name) {
   for (const link of tabLinks) {
     if (link.dataset.page === name) {
@@ -39,6 +43,7 @@ function render(name) {
   mountIcons(content);
   content.dataset.page = name;
   setActiveTab(name);
+  setTitle(name);
 }
 
 function finishSwap() {
